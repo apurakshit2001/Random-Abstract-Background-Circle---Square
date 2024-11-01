@@ -14,11 +14,13 @@
 <body>
     <div class="container">
         <button onclick="generate()">Generate</button>
-        <button class="circleBtn" onclick="circle(); generate();">Circle | Square</button>
+        <button class="circleBtn" onclick="toggleShape(); generate();">Circle</button>
     </div>
 
     <script>
         const container = document.querySelector('.container');
+        let isCircle = false; 
+
         for (let i = 0; i < 80; i++) {
             const blocks = document.createElement('div');
             blocks.classList.add('block');
@@ -32,13 +34,13 @@
         function generate() {
             anime({
                 targets: '.block',
-                translateX: function() {
+                translateX: function () {
                     return anime.random(-700, 700);
                 },
-                translateY: function() {
+                translateY: function () {
                     return anime.random(-500, 500);
                 },
-                scale: function() {
+                scale: function () {
                     return anime.random(1, 5);
                 },
                 // easing: 'easeInOutQuad',
@@ -46,9 +48,13 @@
                 // delay: anime.stagger(20),
             });
         }
-        generate();
 
-        function circle() {
+        generate();
+        
+        function toggleShape() {
+            isCircle = !isCircle; 
+            document.querySelector('.circleBtn').textContent = isCircle ? 'Square' : 'Circle';
+
             document.querySelectorAll('.block').forEach(block => {
                 block.classList.toggle('circle');
             });
